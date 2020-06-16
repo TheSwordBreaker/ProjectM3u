@@ -1,0 +1,127 @@
+
+
+
+.fly{
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.nav-item{
+    color: white
+}
+
+main {
+    min-height: 100%;
+    
+}
+body {
+    background-color:#f5f5f5;
+}
+
+.border-table {
+    border: 1px solid #bdc3c7;
+    border-color: #bdc3c7;
+    border-radius: 15px;
+}
+
+/* .table-wrapper {
+    background: #fff;
+    padding: 20px 25px;
+    margin: 30px 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+} */
+
+#box {
+   
+    height: 80vh;
+    
+   
+}
+ 
+
+.border-table thead  {
+    border: 3px 
+    
+}
+.table .thead-light th{
+    
+    background-color:rgb(245, 247, 247);
+    color:rgba(0,0,0,.54);
+    /* border-left:  */
+}
+
+tbody {
+    height: 100%;
+}
+
+.empty{
+    display: table-row;    
+    background-color:rgb(60, 124, 124);
+}
+form{
+   
+    padding: 15px;
+}
+
+footer p {
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pagination {
+    float: right;
+    margin: 0 0 5px;
+}
+.pagination li a {
+    border: none;
+    font-size: 13px;
+    min-width: 30px;
+    min-height: 30px;
+    color: #999;
+    margin: 0 2px;
+    line-height: 30px;
+    border-radius: 2px !important;
+    text-align: center;
+    padding: 0 6px;
+}
+.pagination li a:hover {
+    color: #666;
+}	
+.pagination li.active a, .pagination li.active a.page-link {
+    background: #03A9F4;
+}
+.pagination li.active a:hover {        
+    background: #0397d6;
+}
+.pagination li.disabled i {
+    color: #ccc;
+}
+.pagination li i {
+    font-size: 16px;
+    padding-top: 6px
+}
+.hint-text {
+    float: left;
+    margin-top: 10px;
+    font-size: 13px;
+}  
