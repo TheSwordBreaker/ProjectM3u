@@ -1,0 +1,77 @@
+#EXTM3U url-tvg=""
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Bloomberg India" tvg-logo="" group-title="Undefined",Bloomberg India
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=bloomtv.live-s.cdn.bitgravity.com/cdn-live-b5/_definst_/bloomtv/live/feed01/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="BollyWood Hd" tvg-logo="" group-title="Undefined",BollyWood Hd
+http://telekomtv-ro.akamaized.net/shls/LIVE$BollywoodHD/247.m3u8/Level(3670016)?start=LIVE&end=END&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="" group-title=""
+
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Bollywood Classic" tvg-logo="" group-title="Undefined",Bollywood Classic
+http://telekomtv-ro.akamaized.net/shls/LIVE$BollywoodClassic/6.m3u8/Level(1677721)?start=LIVE&end=END&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Bollywood Now" tvg-logo="" group-title="Undefined",Bollywood Now
+https://a.jsrdn.com/broadcast/d4dba2e3/+0000/hi/c.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Boogle Bollywood" tvg-logo="" group-title="Undefined",Boogle Bollywood
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=live.agmediachandigarh.com/booglebollywood/774e3ea9f3fa9bcdac47f445b83b6653.sdp/index.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Boss TV" tvg-logo="" group-title="Undefined",Boss TV
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=bosstv3.chennaistream.net/bosstv/mp4:bosstvlive/index.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Xplore Channel" tvg-logo="" group-title="Undefined",Xplore Channel
+http://live.streamjo.com:1935/eetlive/eettv/playlist.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="CHANNEL I" tvg-logo="" group-title="Undefined",CHANNEL I
+http://iptv-line.com:7899/live/live:506b419c7ec7c479/RxStPoBPot/8975.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Channel Divya" tvg-logo="" group-title="Undefined",Channel Divya
+http://edge-ind.inapcdn.in:1935/berry1/latest.stream_aac/chunklist_w1157917870.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Channel Win" tvg-logo="" group-title="Undefined",Channel Win
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=edge-ap2.cloudfrontcdn.in:1935/edge1/mystream.stream_aac/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Channel Y" tvg-logo="" group-title="Undefined",Channel Y
+http://cdn19.live247stream.com/channely/tv/playlist.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Channel Y" tvg-logo="" group-title="Undefined",Channel Y
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=cdn19.live247stream.com/channely/tv/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="IN | Chardikla Time Tv North America" tvg-logo="" group-title="Undefined",IN | Chardikla Time Tv North America
+http://radio.lapunjabiradio.com/hls/chardiklanorthamerica.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Cine Voice" tvg-logo="" group-title="Undefined",Cine Voice
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=live.wmncdn.net/cinevoice/508a8ec9dfdb9c61df9823aac272b719.sdp/mono.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD News" tvg-logo="" group-title="Undefined",DD News
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=nicls1-lh.akamaihd.net/i/ddnews_1@409133/master.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Podhigai" tvg-logo="" group-title="Undefined",DD Podhigai
+http://tvpremiumhd.club/lista-gratuita/213011/on/lives.php?id=mk9qa798qwyb-hls-live.wmncdn.net/824/abrstream/bbb19eae240ec100af921d511efc86a0.sdp/mono.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Punjabi" tvg-logo="" group-title="Undefined",DD Punjabi
+http://playhls.media.nic.in/live/ddpunjabi-360p/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Punjabi" tvg-logo="" group-title="Undefined",DD Punjabi
+https://playhls.media.nic.in/live/ddpunjabi-360p/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="IN | DD Punjabi" tvg-logo="" group-title="Undefined",IN | DD Punjabi
+http://playhls.media.nic.in/live/ddpunjabi/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Vyas" tvg-logo="" group-title="Undefined",DD Vyas
+http://playhls.media.nic.in/live/vyas-360p/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DY365" tvg-logo="" group-title="Undefined",DY365
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=edge-ap2.cloudfrontcdn.in:1935/edge1/smartsh1.stream_aac/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Deepam TV" tvg-logo="" group-title="Undefined",Deepam TV
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=88.202.186.202:1935/cdn/deepamtvuk/index.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi Beats HD" tvg-logo="" group-title="Undefined",Desi Beats HD
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=cdn7.live247stream.com/desibeats/tv/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi Channel" tvg-logo="" group-title="Undefined",Desi Channel
+http://live.wmncdn.net/desichannel/7e2dd0aed46b70a5c77f4affdb702e4b.sdp/playlist.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi Channel" tvg-logo="" group-title="Undefined",Desi Channel
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=live.wmncdn.net/desichannel/7e2dd0aed46b70a5c77f4affdb702e4b.sdp/playlist.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi Channel**" tvg-logo="" group-title="Undefined",Desi Channel**
+http://tvpremiumhd.club/lista-gratuita/213011/on/lives.php?id=ayedewz3dnl6-hls-live.wmncdn.net/1167/desichannel/7e2dd0aed46b70a5c77f4affdb702e4b.sdp/tracks-v1a1/index.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi Plus" tvg-logo="" group-title="Undefined",Desi Plus
+http://cdn2.live247stream.com/desiplus/tv/playlist.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Desi TV Punjabi" tvg-logo="" group-title="Undefined",Desi TV Punjabi
+http://iptv-line.com:7899/live/live:506b419c7ec7c479/RxStPoBPot/5717.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Dhamaal" tvg-logo="" group-title="Undefined",Dhamaal
+http://linear06hun-lh.akamaihd.net/i/dhamaal_1@665243/master.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Dhamaal" tvg-logo="" group-title="Undefined",Dhamaal
+http://linear06hun-lh.akamaihd.net/i/dhamaal_1@665243/index_2128_av-p.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="Dhamaal" tvg-logo="" group-title="Undefined",Dhamaal
+http://tvpremiumhd.club/lista-gratuita/213011/on/live.php?id=linear06hun-lh.akamaihd.net/i/dhamaal_1@665243/master.m3u8&checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="CNBC Awaaz" tvg-logo="" group-title="Business;Undefined",CNBC Awaaz
+https://cnbcawaaz-lh.akamaihd.net/i/cnbcawaaz_1@174872/index_5_av-p.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="CNBC TV18" tvg-logo="" group-title="Business",CNBC TV18
+https://cnbctv18-lh.akamaihd.net/i/cnbctv18_1@174868/index_5_av-p.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DSport" tvg-logo="" group-title="Sport",DSport
+http://jiocgehub.jio.ril.com/Dsports_HD/Dsports_HD.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Sports" tvg-logo="" group-title="Sport",DD Sports
+http://103.199.161.254/Content/ddsports/Live/Channel(DDSPORTS)/Stream(02)/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DD Sports" tvg-logo="" group-title="Sport",DD Sports
+http://103.199.161.254/Content/ddsports/Live/Channel(DDSPORTS)/index.m3u8?checkedby:iptvcat.com
+#EXTINF:-1 tvg-id="(no tvg-id)" tvg-name="DSport" tvg-logo="" group-title="Sport",DSport
+http://jiocgehub.jio.ril.com/Dsports_HD/Dsports_HD_800.m3u8?checkedby:iptvcat.com

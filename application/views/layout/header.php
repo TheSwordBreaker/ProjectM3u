@@ -9,9 +9,12 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('assets/css/icon.css') ?>" />
+
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
     <script src="<?= base_url('assets/js/jquery-3.5.1.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/jquery-ui.js') ?>"></script>
     
    
     <title> <?= $title ?></title>
@@ -31,35 +34,45 @@
             <!-- <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('Contact') ?>"> Us</a>
             </li> -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Options
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= base_url('/admin ') ?>">Admin</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= base_url('/logout ') ?>">Logout</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('/playlist ') ?>">PlayList</a>
-            </li>
+            <?php if(!$this->session->userdata('username')): ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('/signup') ?>">Sign Up</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('/login') ?>">Login</a>
             </li>
+            <?php else: ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                UserProfile
+                Options
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="<?= base_url('/playlist ') ?>">PlayList</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="<?= base_url('/editor ') ?>">Editor</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('/playlist ') ?>">PlayList</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('/editor ') ?>">Editor</a>
+            </li>
+           
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?= $this->session->userdata('username') ?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php if($this->session->userdata('role')): ?>
+                <a class="dropdown-item" href="<?= base_url('/admin ') ?>">Admin</a>
+                <?php endif ?>
                 <a class="dropdown-item" href="#">UserProfile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= base_url('/logout ') ?>">Logout</a>
                 </div>
             </li>
+            <?php endif ?>
             </ul>
         </div>
     </nav>
@@ -77,7 +90,7 @@
     </div>
 
  
-<?php endif; $this->session->unset_userdata('error'); ?>
+<?php endif; $this->session->unset_userdata('message'); ?>
 <div class="col-9 mx-auto mt-3 " >
         <div class="alert alert-warning alert-dismissible fade hide" id="alert" role="alert">
          <span id="msg"></span>

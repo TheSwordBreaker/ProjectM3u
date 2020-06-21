@@ -10,7 +10,8 @@ class User_model extends CI_Model {
                 $data = array(
                         'username' => $this->input->post('user'),
                         'password' => $this->input->post('password'),
-                        'email' => $this->input->post('email')
+                        'email' => $this->input->post('email'),
+                        'role' => $this->input->post('role'),
                 );
                 $data = $this->security->xss_clean($data);
                 return $this->db->insert('user', $data);
@@ -41,7 +42,10 @@ class User_model extends CI_Model {
                 $d = $query->result();
                 if ($query->num_rows()) {
                         if ($data['password'] == $d[0]->password) {
-                                $this->session->set_userdata('username', $d[0]->username, 'id', $d[0]->id);
+                                $this->session->set_userdata('username', $d[0]->username);
+                                $this->session->set_userdata('id', $d[0]->id);
+                                $this->session->set_userdata('role', $d[0]->role);
+                                
                                 return true;
                         } 
                         else 
@@ -93,14 +97,17 @@ class User_model extends CI_Model {
 
         public function edit()
         {
+                $id = $this->input->post('id');
                 $data = array(
                         'username' => $this->input->post('user'),
                         'password' => $this->input->post('password'),
-                        'email' => $this->input->post('email')
+                        'email' => $this->input->post('email'),
+                        'role' => $this->input->post('role'),
+                        'updateAt'=>date('Y-m-d H:i:s')
                 );
                 $this->db->where('id', $id);
-
-                if ($this->db->update('user', $data)) {
+                $this->db->update('user', $data);
+                if ($this->db->affected_rows() > 0) {
                         return true;
                 } else {
                         return false;
@@ -109,14 +116,14 @@ class User_model extends CI_Model {
 
         public function list()
         {
-                $query = $this->db->get('user');
+                $query = $this->db->select('id ,username, email,')->get('user');
                 // $query = $this->db->limit($limit, $offest)->get('user');
                 $result = $query->result();
-                return $result;
+                return $result; 
         }
-        public function Deatail()
+        public function deatail()
         {
-                $id = $this->input->post('id');
+                $id = $this->input->get('id');
                 $query = $this->db->where('id',$id)->get('user');
                 $result = $query->result();
                 return $result;

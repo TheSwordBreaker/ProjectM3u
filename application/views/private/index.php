@@ -6,7 +6,7 @@
           <div class="container" id="preTableContainer">
             <p class="h6">Total Users are :3</p>
             <p class="">
-              <button class="btn btn-primary">Create User</button>
+              <button class="btn btn-primary" id="btnAdd" data-toggle="modal" data-model="addEmployeeModal">Create User</button>
               <!-- <button class="btn btn-primary ">Create Paylist</button>
                     <button class="btn btn-primary ">Create Paylist</button> -->
             </p>
@@ -37,65 +37,23 @@
             </div> -->
           <div class="container" >
             <table
-              class="table table-hover table-light table-sm border-table text-center" id="playlistTable"
+              class="table table-hover table-light border-table text-center" id="playlistTable"
               >
             
               <thead class="thead-light border-table">
                 <tr>
                   
                   <th scope="col">Name</th>
-                  <th scope="col">Source</th>
-                  <th scope="col">Group</th>
-                  <th scope="col">Channel</th>
+                  <th scope="col">Email</th>
+                  
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="listUser">
                 
+                  
                   <tr>
-                    <td >
-                     
-                       
-                      <!-- <i class="material-icons " style="top:3px">
-                        list
-                      </i>  -->
-                       <span>Marks</span>
-                        
-                    </td>
-                    
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                    <td>
-                      <a href="#editEmployeeModal" class="btn btn-info btn-sm edit" data-toggle="modal">Edit</a>
-                      <a href="#deleteEmployeeModal" class="btn btn-danger btn-sm delete" data-toggle="modal">Delete</a>
-                     
-                     
-                  </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    <!-- <span class="material-icons " style="top:3px">  list</span> -->
-                     Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Thornton</td>
-                    <td>
-                    <a href="#editEmployeeModal" class="btn btn-info btn-sm edit" data-toggle="modal">Edit</a>
-                      <a href="#deleteEmployeeModal" class="btn btn-danger btn-sm delete" data-toggle="modal">Delete</a>
-                  </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    <!-- <span class="material-icons " style="top:3px"> list     </span> -->
-                       Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>the Bird</td>
-                    <td>
-                    <a href="#editEmployeeModal" class="btn btn-info btn-sm edit" data-toggle="modal">Edit</a>
-                      <a href="#deleteEmployeeModal" class="btn btn-danger btn-sm delete" data-toggle="modal">Delete</a>
-                  </td>
+                    <td colspan='3'> No Data Avaliable</td>
                   </tr>
 
                   
@@ -106,6 +64,193 @@
         </div>
       </div>
     </main>
+
+<script>
+
+
+        function listUser(){
+
+        $.ajax({
+            url: base + '/admin/listUser',
+            method: "GET",
+            dataType: "json",
+            
+            success: function(d) {
+                
+                if(d.length){
+                    var i = 0;
+                    var html ;
+                    for(i=0;i < d.length ; i++){
+                        html += '<tr><td >' + d[i].username +
+                                '</td><td>' + d[i].email +
+                                '</td><td><a href="#editEmployeeModal" class="btn btn-info btn-sm edit" data="'+ d[i].id +'" data-toggle="modal">Edit</a> \
+                                <a href="#deleteEmployeeModal" class="btn btn-danger btn-sm delete" data="'+ d[i].id +'" data-toggle="modal">Delete</a>   \
+                            </td>           </tr>' 
+                    }
+                    $('#listUser').html(html);
+                }
+            },
+            error: function(d) {
+                alert("Could not Fetch Data From Database");
+            }
+        });
+
+        }
+      $(document).ready(function() {
+          listUser();
+          //delete 
+          $('#listUser').on('click','.delete',function(){
+            var id = $(this).attr('data');
+            $('#btnDelete').unbind().click(function(){
+                $.ajax({
+                  type: 'ajax',
+                  url: base + '/admin/user/delete',
+                  method: "POST",
+                  dataType: 'json',
+                  data:{id:id},
+                  success: function(d) {
+                    if (d.status) {
+                        // $('.alert-success').html('User Deleted').fadeIn().delay(4000).fadeOut('slow');
+                        $('#deleteEmployeeModal').modal('hide');
+                        // alert('user delted');
+                        listUser()
+
+
+                    }else{
+                      alert('error');
+                    }
+                },
+                error: function(d) {
+                    alert("something went wrong");
+                }
+
+                });
+            });
+
+          });
+          $('#listUser').on('click','.edit',function(){
+            $("#my-form").trigger("reset"); 
+              var id = $(this).attr('data');
+              $('#editEmployeeModal').modal('show');
+            $('#editEmployeeModal').find('.modal-title').text('Edit User');
+            $('#btnSubmit').text('Edit');
+            $('#my-form').attr('action',base+'/admin/user/edit');
+            $.ajax({
+                  url: base+'/admin/user/deatail',
+                  method: "GET",
+                  dataType:'json',
+                  data: {  id:id },
+                  success: function(d) {
+                    // var d = JSON.parse(d);
+                    // console.log(d.username);
+                    console.log(d);
+                    $("#inputId").val(id);
+                    $("#inputUser").attr('value',d.username);
+                    $("#inputEmail").attr('value',d.email);
+                    $("#inputPassword").attr('value',d.password);
+                    $("#Role").attr('value',d.role);
+                    
+                      
+                  },
+                  error: function(d) {
+                      alert("something went wrong");
+                  }
+              });
+
+
+          });
+
+          $('#btnAdd').on('click',function(){
+            $("#my-form").trigger("reset"); 
+            $('#editEmployeeModal').modal('show');
+            $('#editEmployeeModal').find('.modal-title').text('Add new User');
+            $('#btnSubmit').text('Add');
+            $('#my-form').attr('action',base+'/admin/user/create')
+          });
+
+         
+          
+          $("#my-form").validate({
+                    rules: {
+                        inputEmail: {
+                            required: true,
+                            email: true
+                        },
+                        inputUser: {
+                            required: true,
+                            minlength: 5,
+                            maxlength: 15
+                        },
+                        inputPassword: {
+                            required: true,
+                            minlength: 5
+                        },
+                        inputPassword2: {
+                            required: true,
+                            minlength: 5,
+                            equalTo : "#inputPassword"
+                        },Role : {
+                            required: true
+                        }
+                    },
+                    errorClass: "myError",
+                    messages: {
+                        inputEmail: "Please enter a valid email address",
+                        inputUser: {
+                            required: "**Please provide a Username",
+                            minlength: "**Your Username must be at least 5 characters long",
+                            maxlength: "**Your Username must be at most 15 characters long"
+                        },
+                        inputPassword: {
+                            required: "**Please provide a password",
+                            minlength: "**Your password must be at least 5 characters long"
+                        },
+                        inputPassword2: {
+                            required: "**Please provide a password",
+                            minlength: "**Your password must be at least 5 characters long",
+                            equalTo : "**Your password must be same."
+                        },
+                    },
+                    submitHandler: function(form) {
+                        var user = $("#inputUser").val();
+                        var email = $("#inputEmail").val();
+                        var password = $("#inputPassword").val();
+                        var id = $("#inputId").val();
+                        var url = $('#my-form').attr('action');
+                        var role = $("#Role").children("option:selected").val();
+                
+                        $.ajax({
+                            url: url,
+                            method: "POST",
+                            dataType:'json',
+                            data: {
+                                "user": user,
+                                "password": password,
+                                "email": email,
+                                "id":id,
+                                "role":role,
+                                
+                            },
+                            success: function(d) {
+                              $('#editEmployeeModal').modal('hide');  
+                              listUser();
+                              $("#my-form").trigger("reset"); 
+
+                                
+                            },
+                            error: function(d) {
+                                alert("something went wrong");
+                            }
+                        });
+                    }
+                });
+
+
+
+
+      });
+
+    </script>
 
 
   <!-- Delete Modal -->
@@ -123,7 +268,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-danger " id="btnDelete">Delete</button>
       </div>
     </div>
   </div>
@@ -139,8 +284,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form  method="post" id="my-form" action="">
       <div class="modal-body">
-      <form  method="post" id="signup-form">
+          <input type="hidden" id="inputId"  >
           <div class="form-group">
             <label for="inputEmail" class="col-lg-6 control-label">Email</label>
             <div class="col-lg-10">
@@ -154,18 +300,37 @@
               </div>
           </div>
           <div class="form-group">
+              <label for="inputUser" class="col-lg-6 control-label">Role</label>
+              <div class="col-lg-10">
+              <select class="custom-select custom-select-md mb-2"  name="Role" id="Role"  >
+                  <option selected>Select A Playlist </option>
+                  
+                  <option value="1">Admin</option>
+                  <option value="0">Standard User</option>
+                  
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
               <label for="inputPassword" class="col-lg-6 control-label">Password</label>
               <div class="col-lg-10">
                   <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" autocomplete="off">
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" name="showpassword" id="showpassword"> Show Password
+                      </label>
+                  </div>
               </div>
           </div>
 
-      </form>
+      
       </div>
       <div class="modal-footer">
               <button type="reset"  data-dismiss="modal"  class="btn btn-default">Cancel</button>
-              <button type="submit" class="btn btn-info">Edit</button>
+              <button type="submit" class="btn btn-info" id="btnSubmit">Edit</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
+

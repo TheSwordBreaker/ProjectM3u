@@ -57,7 +57,24 @@ $route['signup'] = 'page/signup';
 $route['logout'] = 'admin/logout';
 
 $route['admin'] = 'admin';
-$route['playlist'] = 'admin/playlist';
+
+$route['admin/listUser'] = 'admin/users';
+$route['admin/user/delete'] = 'admin/UserDelete';
+$route['admin/user/create'] = 'admin/UserCreate';
+$route['admin/user/edit'] = 'admin/UserEdit';
+$route['admin/user/deatail'] = 'admin/User';
+
+$route['playlist'] = 'playlistC';
+$route['editor'] = 'EditorC';
+$route['editor/deatail'] = 'EditorC/deatail';
+$route['editor/save'] = 'EditorC/save';
+$route['playlist/create'] = 'playlistC/PlaylistCreate';
+
+$route['playlist/listPlaylist'] = 'playlistC/Playlists';
+$route['playlist/delete'] = 'playlistC/PlaylistDelete';
+$route['playlist/edit'] = 'playlistC/PlaylistEdit';
+$route['playlist/deatail'] = 'playlistC/Playlist';
+
 // $route['/user/create'] = 'admin/UserCreate';
 
 

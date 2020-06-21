@@ -1,5 +1,5 @@
+const base = 'http://localhost:80/ProjectM3u';
 $(document).ready(function() {
-    const base = 'http://localhost:80/ProjectM3u'
 
     $('input').on('focus focusout keyup', function () {
         $(this).valid();
@@ -183,34 +183,7 @@ $(document).ready(function() {
         //         equalTo : "**Your password must be same."
         //     },
         // },
-        submitHandler: function(form) {
-            var playlistSource = $("#playlistSource").val();
-            var playlistName = $("#playlistName").val();
-            alert(playlistName+" "+playlistSource);
-    
-            // $.ajax({
-            //     url: base + '/signup',
-            //     method: "POST",
-            //     data: {
-            //         "user": user,
-            //         "password": password,
-            //         "email": email,
-            //         "extra": ""
-            //     },
-            //     success: function(d) {
-            //         // $('#alert #msg').text(d.msg)
-            //         // $('#alert').show()
-            //         var d = JSON.parse(d);
-            //         alert(d.msg);
-            //         if (d.status === 1) {
-            //             window.location = base+"/login";
-
-            //         }
-            //     },
-            //     error: function(d) {
-            //         alert("something went wrong");
-            //     }
-            // });
-        }
+        
 
 });
+

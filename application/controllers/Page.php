@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Page extends CI_Controller {
 
 	
+
+	
 	public function index()
 	{	
 		$data['title'] = 'M3u';
@@ -44,8 +46,11 @@ class Page extends CI_Controller {
                 
             
             } else {
-                $this->session->set_flashdata('message', 'CAN\'T INSERT');
-                redirect('signup');
+                $data['status']=0;
+				$data['msg']=' User Can not be Created';
+				$data['type']= 'danger';
+
+				echo json_encode($data);
                 
             }
         }else if ($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -89,7 +94,5 @@ class Page extends CI_Controller {
         }
        
 	}
-	public function logout(){
-		
-	}
+
 }
