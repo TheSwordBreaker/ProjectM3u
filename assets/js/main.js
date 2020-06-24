@@ -1,10 +1,12 @@
 const base = 'http://localhost:80/ProjectM3u';
-$(document).ready(function() {
 
+$(document).ready(function() {
     $('input').on('focus focusout keyup', function () {
         $(this).valid();
     });
-    
+    $(".close").on('click',function(){
+        $(this).hide();
+    });
     $("#showpassword").click(function(){
         if($('input[type="checkbox"]').is(':checked')== true){
             $('#inputPassword').attr('type', 'text') 
@@ -51,19 +53,32 @@ $(document).ready(function() {
                     "password": password,
                     
                 },
+                
                 success: function(d) {
 
                     console.log(d)
                     var d = JSON.parse(d);
-                    alert(d.msg);
+                    
                     if (d.status) {
                        
                        window.location = base+'/playlist';
                        
+                       
+                    }else{
+                        
+                        if("redirect" in d){
+                            window.location = base+d.redirect;
+                            
+                        }else{
+                            $('#alert-success #msg').text(d.msg);
+                            $('#alert-success').show()
+                        }
                     } 
                 },
                 error: function(d) {
-                    alert("there was a connection problem")
+                   
+                    $('#alert-danger #msg').text("there was a connection problem");
+                     $('#alert-danger').show()
                 }
             });
     
@@ -76,12 +91,20 @@ $(document).ready(function() {
             
             inputEmail: {
                 required: true,
-                email: true
+                email: true,
+                remote: {
+                    url: base + '/checkemail',
+                    type: 'post'
+                 }
             },
             inputUser: {
                 required: true,
                 minlength: 5,
-                maxlength: 15
+                maxlength: 15,
+                remote: {
+                    url: base + '/checkusername',
+                    type: 'post'
+                 }
             },
             inputPassword: {
                 required: true,
@@ -95,11 +118,16 @@ $(document).ready(function() {
         },
         errorClass: "myError",
         messages: {
-            inputEmail: "Please enter a valid email address",
+            inputEmail: {
+                required: "Please enter a valid email address",
+                email: "Please enter a valid email address",
+                remote: "Email already in use!"
+            },
             inputUser: {
                 required: "**Please provide a Username",
                 minlength: "**Your Username must be at least 5 characters long",
-                maxlength: "**Your Username must be at most 15 characters long"
+                maxlength: "**Your Username must be at most 15 characters long",
+                remote: "Username already in use!"
             },
             inputPassword: {
                 required: "**Please provide a password",
@@ -132,12 +160,17 @@ $(document).ready(function() {
                     var d = JSON.parse(d);
                     alert(d.msg);
                     if (d.status === 1) {
-                        window.location = base+"/login";
+                        window.location = base+"/confirm";
 
+                    }
+                    else{
+                        $('#alert-danger #msg').text(d.msg);
+                        $('#alert-danger').show()
                     }
                 },
                 error: function(d) {
-                    alert("something went wrong");
+                    $('#alert-danger #msg').text("something went wrong");
+                    $('#alert-danger').show()
                 }
             });
         }

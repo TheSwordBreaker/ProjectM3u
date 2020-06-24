@@ -94,8 +94,12 @@ footer p {
     display: block;
 }
 
-
-
+#alert-success{
+    display: none;
+}
+#alert-danger{
+    display: none;
+}
 
 
 

@@ -26,7 +26,7 @@
           </button>
           <button class="btn btn-success" id="groupBtnSave">Save</button>
         </p>
-        <p class="h6">Total Groups are : <span id="Grouplength"> 4 </span></p>
+        <p class="h6">Total Groups are : <span id="Grouplength"> 0 </span></p>
       </div>
       <div class="container">
         <table
@@ -59,7 +59,7 @@
           </button>
           <button class="btn btn-success" id="channelBtnSave">Save</button>
         </p>
-        <p class="h6">Total List are :<span id="Channellength"> 4 </span></p>
+        <p class="h6">Total List are :<span id="Channellength"> 0 </span></p>
       </div>
       <div class="container">
         <table
@@ -73,7 +73,7 @@
               <th scope="col" colspan="2" class="text-right pr-3">Actions</th>
             </tr>
           </thead>
-          <tbody id="channelTable">
+          <tbody id="channelTable" group="Undefined">
             <tr>
               <td colspan="7">No Data Avaliable</td>
             </tr>
@@ -97,6 +97,36 @@
   function setGroupData(d) {
     localStorage.setItem("groupdata", JSON.stringify(d));
   } 
+  function intitalGroup(){
+    var groupData = {}, e;
+       var playlistdata = getplaylist();
+        if(playlistdata == null || playlistdata == ""){
+          groupData = {"Undefined":0}
+          groupData = Object.entries(groupData)
+          groupData[0].push(0);
+          groupData[0].push("1");
+        }else{
+          for (var i = 0; i < playlistdata.length; i++) {
+          e = playlistdata[i];
+          if (e["group-title"] in groupData) {
+            
+            groupData[e["group-title"]] += 1;
+          } else {
+            groupData[e["group-title"]] = 1;
+          }
+        }
+        groupData = Object.entries(groupData)
+        var sum = 0;
+        
+          for(var e in groupData){
+            groupData[e].push(sum);
+            groupData[e].push(playlistdata.slice(sum,groupData[e][1]+sum).map((x)=> {return x['show']} ).find((x)=> x=="1"));
+            sum = sum + groupData[e][1];
+          }
+        }
+        
+        setGroupData(groupData);
+  }
   function getplaylistFromUrl(id) {
     $.ajax({
       url: base + "/editor/deatail",
@@ -111,37 +141,9 @@
         localStorage.setItem("playlistdata", JSON.stringify(d.DATA));
         localStorage.setItem("reservePlaylistdata", JSON.stringify(d.DATA));
         playlistdata = d.DATA;
-        var groupData = {} , e;
-       // groupData = playlistdata.map(function(e){    });
-        for (var i = 0; i < playlistdata.length; i++) {
-          e = playlistdata[i];
-          if (e["group-title"] in groupData) {
-            
-            groupData[e["group-title"]] += 1;
-          } else {
-            groupData[e["group-title"]] = 1;
-          }
-        }
-        
-        console.log(groupData);
-        groupData = Object.entries(groupData)
-        var sum = 0;
-        console.log(sum);
-        for(var e in groupData){
-          groupData[e].push(sum);
-          sum = sum + groupData[e][1];
-          console.log(sum);
-        }
-        
-        
-        setGroupData(groupData);
-      //  console.log(Object.entries(groupData),playlistdata);
-        console.log(groupData);
-        var groupData = [] , e;
-      
+        intitalGroup();
         listgroups();
-        $("#createGroup").prop("disabled",false);
-        $("#createChannel").prop("disabled",false);
+        
       },
       error: function (d) {
         alert("something went wrong");
@@ -165,16 +167,20 @@
         groupData[e][1] +
         ' </td> \
             <td colspan="2" class="text-right pr-3" >  \
-            <a data-group="'+ groupData[e][0] +'" data="'+ e +'" href="#editorModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> \
-            <a data-group="'+ groupData[e][0] +'" data="'+ e +'" href="#deleteModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> \
+            <a data-group="'+ groupData[e][0] +'" data="'+ e +'" href="#editorModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> ' +
+            '<a data-group="'+ groupData[e][0] +'" data="'+ e +'" class="show text-primary" data-toggle="modal">' +
+          ( parseInt(groupData[e][3]) ? '<span class="material-icons" data-toggle="tooltip" title="Delete">visibility</span>' :'<span class="material-icons" data-toggle="tooltip" title="Delete">visibility_off</span>')    +
+          '<a data-group="'+ groupData[e][0] +'" data="'+ e +'" href="#deleteModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> \
         </td> \
         </tr>';
+        
     }
     $("#groupTable").html(groupTable);
     
     
     $("#Grouplength").html(groupData.length);
-    //onsole.log( Object.keys(groupData)[0])
+    console.log( groupData)
+    
     listchannels(groupData[0][0]);
   }
 
@@ -193,7 +199,9 @@
         
         '</td><td colspan="2" class="text-right pr-3" > \
           <a data="'+items+'" data-group="'+playlistdata[items]["group-title"] + '"href="#editorModel" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">create</i></a> \
-          <a data="'+items+'" data-group="'+playlistdata[items]["group-title"] +'" href="#deleteModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a> \
+          <a data="'+items+'" data-group="'+playlistdata[items]["group-title"] +'" class="show text-primary" data-toggle="modal">' +
+          ( parseInt(playlistdata[items]["show"]) ? '<span class="material-icons" data-toggle="tooltip" title="Delete">visibility</span>' :'<span class="material-icons" data-toggle="tooltip" title="Delete">visibility_off</span>')    +
+          '</a><a data="'+items+'" data-group="'+playlistdata[items]["group-title"] +'" href="#deleteModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a> \
           </td></tr>');
 
           count++;
@@ -225,6 +233,7 @@
   function channelDataChaned() {
     $("#channelBtnCancel").show();
     $("#channelBtnSave").show();
+    
   }
 
   $(document).ready(function () {
@@ -238,7 +247,10 @@
       
       $("#playlistSource").on("change", function () {
         var select = $(this).children("option:selected").val();
-        getplaylistFromUrl(select);
+        if( select !== null && select !== "Select A Playlist")
+          getplaylistFromUrl(select);
+        $("#createGroup").prop("disabled",false);
+        $("#createChannel").prop("disabled",false);
       //list table
     });
 
@@ -263,17 +275,21 @@
       $('#btnDelete').text('delete')
       $("#btnDelete").unbind().click(function () {
           var playlistdata = getplaylist();
-
-          playlistdata = playlistdata.filter((x)=>{
-             return  x["group-title"] != data_group
-          });
-          
-          setplaylist(playlistdata)
           var groupData = getGroupData();
-          groupData.pop(id);
-          setGroupData(groupData);
-          listgroups();
-          groupDataChaned()
+          if(groupData.length == 1){
+            alert("Last Group Can't be deleted");
+            
+          }else{
+            playlistdata = playlistdata.filter((x)=>{
+              return  x["group-title"] != data_group
+            });
+            
+            setplaylist(playlistdata)
+            groupData.pop(id);
+            setGroupData(groupData);
+            listgroups();
+            groupDataChaned()
+          }
           $('#deleteModal').modal('hide');
         });
       });
@@ -290,7 +306,7 @@
         if($("#editor-form").valid()){
           var group = $("#Name").val().trim();
           var groupData = getGroupData();
-          groupData.push([group , 0]);
+          groupData.push([group , 0, 0 ,"1"]);
           
           setGroupData(groupData);
           //groupData 
@@ -314,6 +330,7 @@
       $('#btnSubmit').text('Edit');
       $("#urlId").hide();
 
+      $("#Name").attr('value','');
       $("#Name").attr('value',data_group);
       $('#editorModel').modal('show');
       
@@ -321,6 +338,7 @@
         if($("#editor-form").valid()){
           var group = $("#Name").val().trim();
           if(group != data_group){
+          
               var playlistdata = getplaylist();
               playlistdata.map((x)=>{
                     if(x["group-title"] == data_group){
@@ -329,9 +347,7 @@
               });
               setplaylist(playlistdata)
               groupData = getGroupData()
-              //groupData 
-              groupData[id][0] = data_group;
-
+              groupData[id][0] = group;
               setGroupData(groupData);
               listgroups();
               groupDataChaned()
@@ -339,6 +355,36 @@
         }
         $('#editorModel').modal('hide');
       });  
+     }); 
+
+
+    $('#groupTable').on('click','.show',function(){
+      var id = parseInt($(this).attr("data"));
+      var data_group = $(this).attr("data-group").trim();
+      
+      
+      groupData = getGroupData()
+      //groupData 
+      groupData[id][3] = (groupData[id][3] == "1"? "0":"1");
+
+
+      var playlistdata = getplaylist();
+
+
+      playlistdata.map((x)=>{
+            if(x["group-title"] == data_group){
+                x["show"] = groupData[id][3];
+                console.log(x["show"])
+            }
+      });
+      console.log(groupData)
+      setplaylist(playlistdata)
+      setGroupData(groupData);
+      
+      listgroups();
+      groupDataChaned()
+        
+         
      }); 
 
     //Channel delete  Handler
@@ -355,8 +401,16 @@
         $("#deleteModal").modal("show");
         $("#btnDelete").unbind().click(function () {
             var playlistdata = getplaylist();
+
             playlistdata.splice(id, 1);
             setplaylist(playlistdata)
+            var groupData = getGroupData();
+            groupData.map((x)=>{
+                    if(x[0] == data_group){
+                       x[1] = x[1]-1;
+                    }
+              });
+        setGroupData(groupData);
             listgroups();
             listchannels(data_group);
             channelDataChaned()
@@ -376,20 +430,36 @@
       
       $("#btnSubmit").unbind().click(function () {
         if($("#editor-form").valid()){
-          playlistdata = getplaylist()
-          var name = $("#Name").val().trim();
-          var url = $("#StreamUrl").val().trim();
-          var id =  $('#channelTableID tr:last').attr('data');
-          id = parseInt(id) + 1;
-          var group = $('#channelTable').attr('group').trim();
+
           
-          var item = {"tvg-id":"(no tvg-id)",
-                      "tvg-name":name,
-                      "group-title":group,
-                      "url":url };
-          playlistdata.splice(id, 0, item);
+            playlistdata = getplaylist()
+            var name = $("#Name").val().trim();
+            var url = $("#StreamUrl").val().trim();
+            var id =  $('#channelTableID tr:last').attr('data');
+            id = parseInt(id) + 1;
+            var group = $('#channelTable').attr('group').trim();
+            
+            var item = {"tvg-id":"(no tvg-id)",
+                        "tvg-name":name,
+                        "group-title":group,
+                        "url":url,
+                        "show":"1" };
+            if(playlistdata != null){
+            playlistdata.splice(id, 0, item);
+            }else{
+              playlistdata = []
+            playlistdata.push(item);
+
+            }
         }
         setplaylist(playlistdata)
+        var groupData = getGroupData();
+        groupData.map((x)=>{
+                    if(x[0] == group){
+                       x[1] = x[1]+1;
+                    }
+              });
+        setGroupData(groupData);
         listgroups();
         listchannels(group);
         channelDataChaned() ;
@@ -440,6 +510,22 @@
       });  
      }); 
 
+    $("#channelTable").on("click", ".show", function () {
+      var id = $(this).attr("data");
+      var data_group = $(this).attr("data-group");
+      //console.log(data_group, id);
+      
+      console.log(id,playlistdata[id]["show"])
+      playlistdata = getplaylist()
+      playlistdata[id]["show"] = (playlistdata[id]["show"] == "1"? "0":"1");;
+
+      console.log(id,playlistdata[id]["show"])
+      setplaylist(playlistdata);
+      channelDataChaned() ;
+      listgroups();
+      listchannels(data_group);
+     }); 
+
 
     
 
@@ -482,6 +568,7 @@
           },
           error: function (d) {
             alert("something went wrong");
+            
           },
         });
       }
@@ -489,8 +576,11 @@
     $("#groupBtnSave").on("click", function groupDataSave() {
       save();
       listgroups();
-      $("#groupBtnCancel").hide();
-      $("#groupBtnSave").hide();
+      $("#channelBtnCancel").hide();
+        $("#channelBtnSave").hide();
+        $("#groupBtnCancel").hide();
+        $("#groupBtnSave").hide();
+
     });
     //save listerner
     $("#channelBtnSave").on("click", function channelDataSave() {
@@ -500,14 +590,15 @@
       listgroups();
       listchannels(group);
       $("#channelBtnCancel").hide();
-      $("#channelBtnSave").hide();
+        $("#channelBtnSave").hide();
+        $("#groupBtnCancel").hide();
+        $("#groupBtnSave").hide();
+
     });
 
     //cancel changes
     function cancel(){
       playlistdata =  JSON.parse(localStorage.getItem("reservePlaylistdata"));
-       
-        
         setplaylist(playlistdata);
         alert("Changeds Have been Cancel");
     }
@@ -516,6 +607,8 @@
       listgroups();
       $("#groupBtnCancel").hide();
       $("#groupBtnSave").hide();
+      $("#channelBtnCancel").hide();
+      $("#channelBtnSave").hide();
     });
     $("#channelBtnCancel").on("click", function channelDataCancel() {
         cancel();
@@ -523,6 +616,8 @@
         listchannels(group);
         $("#channelBtnCancel").hide();
         $("#channelBtnSave").hide();
+        $("#groupBtnCancel").hide();
+        $("#groupBtnSave").hide();
       });
 
       //dectied changes
@@ -563,9 +658,7 @@
     handle: '.handle',
     update: function () {
       channelDataChaned();
-      new_locations = $(this).find('tr').map(function(i, el) {
-        return $(el).data("d");
-      }).get()
+      
       
       
     },
@@ -574,12 +667,16 @@
     },
     stop: function(event, ui) {
       var offset = parseInt($('#channelTable').attr('offset'));
+      var group = $('#channelTable').attr('group').trim();
+
       console.log("Start position: " + (ui.item.startPos + offset ));
       console.log("New position: " + (ui.item.index() + offset));
       var a = reorderArray((ui.item.startPos + offset ),(ui.item.index() + offset),getplaylist());
-      //console.log(getplaylist())
-      //console.log(a)
+      
       setplaylist(a)
+      listgroups()
+      listchannels(group)
+
     }
   });
 
@@ -645,6 +742,7 @@
      console.log(a)
      setplaylist(a)
      setGroupData(reorderArray(ui.item.startPos,ui.item.index(),getGroupData()));
+     listgroups()
      
     }
   });

@@ -91,7 +91,8 @@
                 }
             },
             error: function(d) {
-                alert("Could not Fetch Data From Database");
+              $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
             }
         });
 
@@ -114,14 +115,17 @@
                         $('#deleteEmployeeModal').modal('hide');
                         // alert('user delted');
                         listUser()
-
+                        $('#alert-success #msg').text(d.msg);
+                       $('#alert-success').show()
 
                     }else{
-                      alert('error');
+                      $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
                     }
                 },
                 error: function(d) {
-                    alert("something went wrong");
+                  $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
                 }
 
                 });
@@ -153,7 +157,8 @@
                       
                   },
                   error: function(d) {
-                      alert("something went wrong");
+                    $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
                   }
               });
 
@@ -172,15 +177,23 @@
           
           $("#my-form").validate({
                     rules: {
-                        inputEmail: {
-                            required: true,
-                            email: true
-                        },
-                        inputUser: {
-                            required: true,
-                            minlength: 5,
-                            maxlength: 15
-                        },
+                      inputEmail: {
+                      required: true,
+                      email: true,
+                      remote: {
+                          url: base + '/checkemail',
+                          type: 'post'
+                      }
+                  },
+                  inputUser: {
+                      required: true,
+                      minlength: 5,
+                      maxlength: 15,
+                      remote: {
+                          url: base + '/checkusername',
+                          type: 'post'
+                      }
+                  },
                         inputPassword: {
                             required: true,
                             minlength: 5
@@ -195,12 +208,17 @@
                     },
                     errorClass: "myError",
                     messages: {
-                        inputEmail: "Please enter a valid email address",
-                        inputUser: {
-                            required: "**Please provide a Username",
-                            minlength: "**Your Username must be at least 5 characters long",
-                            maxlength: "**Your Username must be at most 15 characters long"
-                        },
+                      inputEmail: {
+                      required: "Please enter a valid email address",
+                      email: "Please enter a valid email address",
+                      remote: "Email already in use!"
+                      },
+                      inputUser: {
+                          required: "**Please provide a Username",
+                          minlength: "**Your Username must be at least 5 characters long",
+                          maxlength: "**Your Username must be at most 15 characters long",
+                          remote: "Username already in use!"
+                      },
                         inputPassword: {
                             required: "**Please provide a password",
                             minlength: "**Your password must be at least 5 characters long"
@@ -235,11 +253,14 @@
                               $('#editEmployeeModal').modal('hide');  
                               listUser();
                               $("#my-form").trigger("reset"); 
+                              $('#alert-success #msg').text(d.msg);
+                             $('#alert-success').show()
 
                                 
                             },
                             error: function(d) {
-                                alert("something went wrong");
+                              $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
                             }
                         });
                     }
@@ -303,10 +324,10 @@
               <label for="inputUser" class="col-lg-6 control-label">Role</label>
               <div class="col-lg-10">
               <select class="custom-select custom-select-md mb-2"  name="Role" id="Role"  >
-                  <option selected>Select A Playlist </option>
+                  
                   
                   <option value="1">Admin</option>
-                  <option value="0">Standard User</option>
+                  <option value="0" selected >Standard User</option>
                   
                 </select>
               </div>

@@ -63,6 +63,7 @@ class Playlist_model extends CI_Model {
                 foreach($result as $i){
                         $i->source = $data[$i->source];
                 }
+                
 
                 // echo "<pre>";
                 // print_r($result);

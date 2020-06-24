@@ -54,7 +54,14 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'page/login';
 $route['signup'] = 'page/signup';
+$route['confirm'] = 'page/confirm';
+// $route['confirm'] = 'page/confirm_p';
+$route['checkemail'] = 'page/checkemail';
+$route['checkusername'] = 'page/checkusername';
+$route['activate/(:any)/(:any)'] = 'page/activate/$1/$2';
+
 $route['logout'] = 'admin/logout';
+$route['userprofile'] = 'admin/User';
 
 $route['admin'] = 'admin';
 
@@ -65,15 +72,17 @@ $route['admin/user/edit'] = 'admin/UserEdit';
 $route['admin/user/deatail'] = 'admin/User';
 
 $route['playlist'] = 'playlistC';
-$route['editor'] = 'EditorC';
-$route['editor/deatail'] = 'EditorC/deatail';
-$route['editor/save'] = 'EditorC/save';
 $route['playlist/create'] = 'playlistC/PlaylistCreate';
-
 $route['playlist/listPlaylist'] = 'playlistC/Playlists';
 $route['playlist/delete'] = 'playlistC/PlaylistDelete';
 $route['playlist/edit'] = 'playlistC/PlaylistEdit';
 $route['playlist/deatail'] = 'playlistC/Playlist';
+$route['playlist/download/(:any)'] = 'playlistC/download/$1';
+
+$route['editor'] = 'EditorC';
+$route['editor/deatail'] = 'EditorC/deatail';
+$route['editor/save'] = 'EditorC/save';
+
 
 // $route['/user/create'] = 'admin/UserCreate';
 

@@ -34,7 +34,7 @@
             <!-- <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('Contact') ?>"> Us</a>
             </li> -->
-            <?php if(!$this->session->userdata('username')): ?>
+            <?php if(!$this->session->userdata('username') || ($this->session->userdata('verified') == 0)): ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('/signup') ?>">Sign Up</a>
             </li>
@@ -67,7 +67,7 @@
                 <?php if($this->session->userdata('role')): ?>
                 <a class="dropdown-item" href="<?= base_url('/admin ') ?>">Admin</a>
                 <?php endif ?>
-                <a class="dropdown-item" href="#">UserProfile</a>
+                <!-- <a class="dropdown-item" href="<?= base_url('/userprofile ') ?>">UserProfile</a> -->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= base_url('/logout ') ?>">Logout</a>
                 </div>
@@ -91,14 +91,42 @@
 
  
 <?php endif; $this->session->unset_userdata('message'); ?>
-<div class="col-9 mx-auto mt-3 " >
-        <div class="alert alert-warning alert-dismissible fade hide" id="alert" role="alert">
-         <span id="msg"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+    <div class="col-9 mx-auto mt-3 " id="alert-success" >
+        <div class="alert alert-success alert-dismissible hide" id="alert" role="alert">
+         <span id="msg">this is good news</span>
+            <button type="button" class="close"  aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </div>
+
+    <div class="col-9 mx-auto mt-3 " id="alert-danger" >
+        <div class="alert alert-danger alert-dismissible " id="alert" role="alert">
+         <span id="msg">this is not good news</span>
+            <button type="button" class="close"  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-9 mx-auto mt-3 " >
+        <div class="alert alert-success alert-dismissible fade hide" id="alert" role="alert">
+         <span ></span>
+            <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-9 mx-auto mt-3 " >
+        <div class="alert alert-danger alert-dismissible fade hide " id="alert" role="alert">
+         <span ></span>
+            <button type="button" class="close"  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+   
 
     
 

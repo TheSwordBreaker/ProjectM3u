@@ -56,7 +56,7 @@
                 
                 
                   <tr>
-                    <td colspan='5'> No Data Avaliable</td>
+                    <td colspan='6'> No Data Avaliable</td>
                   </tr>
                
               </tbody>
@@ -82,6 +82,7 @@ $.ajax({
         if(d.length){
             var i = 0;
             var html ;
+            
             for(i=0;i < d.length ; i++){
               html +='<tr> \
                     <td style="width:15px"><span class="material-icons " style="top:3px"> list </span></td> \
@@ -95,12 +96,17 @@ $.ajax({
                       <a  data="'+ d[i].id +'"  href="#downloadPaylistModal" class="download" data-toggle="modal"> <i class="material-icons" data-toggle="tooltip"  >get_app  </i></a>\
                   </td>\
                   </tr>'
+                  
             }
+
             $('#listPlaylist').html(html);
+        }else{
+          $('#listPlaylist').html('<tr><td colspan="6"> No Data Avaliable</td></tr>');
         }
     },
     error: function(d) {
-        alert("Could not Fetch Data From Database");
+        $('#alert-danger #msg').text("Could not Fetch Data From Database");
+        $('#alert-danger').show()
     }
 });
 
@@ -122,21 +128,32 @@ $(document).ready(function() {
                 // $('.alert-success').html('User Deleted').fadeIn().delay(4000).fadeOut('slow');
                 $('#deletePaylistModal').modal('hide');
                 // alert('user delted');
+                $('#alert-success #msg').text(d.msg);
+                $('#alert-success').show()
                 listPlaylist();
 
 
             }else{
-              alert('error');
+              $('#alert-danger #msg').text(d.msg);
+                $('#alert-danger').show()
             }
         },
         error: function(d) {
-            alert("something went wrong");
+            $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
         }
 
         });
     });
 
   });
+
+  $('#listPlaylist').on('click','.download',function(){
+    var id = $(this).attr('data').trim();
+    $('#btnDownload').attr('href',base+'/playlist/download/'+id)
+
+  });
+
   $('#listPlaylist').on('click','.edit',function(){
     $("#uploadPlaylist-form").trigger("reset"); 
       var id = $(this).attr('data');
@@ -156,17 +173,23 @@ $(document).ready(function() {
             $("#playlistid").val(id);
             $("#playlistName").attr('value',d.name);
             $("#playlistSource").attr('value',d.source);
-           
+            $("#playlistUrl").attr('value',d.url);
+            
+
             
               
           },
           error: function(d) {
-              alert("something went wrong");
+            $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
           }
       });
 
 
   });
+
+  
+  
 
   $('#btnAdd').on('click',function(){
     $("#uploadPlaylist-form").trigger("reset"); 
@@ -239,7 +262,7 @@ $(document).ready(function() {
         opacity: 0.6,
         cursor: 'move',
         update: function() {
-          alert('hii')
+         
         }
           }); 
 
@@ -358,6 +381,26 @@ $(document).ready(function() {
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-danger"id="btnDelete">Delete</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="downloadPaylistModal" tabindex="-1" role="dialog" aria-labelledby="downloadPaylistModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="downloadPaylistModal">Delete Playlist</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Do You Want To Download Playlist. ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <a type="button" class="btn btn-success"id="btnDownload">Download</a>
         </div>
       </div>
     </div>

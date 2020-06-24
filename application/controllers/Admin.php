@@ -9,14 +9,17 @@ class Admin extends CI_Controller {
         if (!$this->session->userdata('username')) {
             redirect('login');
         }
+        if($this->session->userdata('verified') == 0) {
+            redirect('confirm');
+        }
     }
 	public function index()
 	{	
         if($this->session->userdata('role')){        
-        $data['title'] = 'M3u';
-		$this->load->view('layout/header', $data);
-		$this->load->view('private/index');
-        $this->load->view('layout/footer');
+            $data['title'] = 'M3u';
+            $this->load->view('layout/header', $data);
+            $this->load->view('private/index');
+            $this->load->view('layout/footer');
         }else {
             redirect('/editor');
         }
@@ -35,13 +38,16 @@ class Admin extends CI_Controller {
     public function logout(){
      $this->session->unset_userdata('username');
      $this->session->unset_userdata('id');
+     $this->session->unset_userdata('role');
+     $this->session->unset_userdata('verified');
         redirect('/');
     }
+    
     public function UserCreate()   
     {   if($this->session->userdata('role')){  
             if ($_SERVER['REQUEST_METHOD'] === "POST"){
                 $this->load->model('User_model','user');
-                if ($this->user->create()) {
+                if ($this->user->create(md5(rand(0,1000)))) {
                     
                     // $this->session->set_flashdata('message', ['success', 'User Created']);
                     $data['status']=1;
@@ -143,15 +149,24 @@ class Admin extends CI_Controller {
     }
 
     public function User(){
-        if($this->session->userdata('role')){  
-            if ($_SERVER['REQUEST_METHOD'] === "GET"){
+         
+            if ($_SERVER['REQUEST_METHOD'] === "POST"){
                 $this->load->model('User_model','user');
                 $data = $this->user->deatail();
                 echo json_encode($data[0]);
+            }else if($_SERVER['REQUEST_METHOD'] === "GET"){
+                
+                $this->load->model('User_model','user');
+                
+                $data['title'] = 'M3u';
+                $data['userdata'] = $this->user->deatail();
+                $this->load->view('layout/header', $data);
+                $this->load->view('private/userprofile',$data);
+                $this->load->view('layout/footer');
             }
         
-        }else{
-        echo "No Acces";
+        
     }
-	
 }
+	
+
