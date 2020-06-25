@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 24, 2020 at 08:19 PM
+-- Generation Time: Jun 25, 2020 at 08:54 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.27
 
@@ -37,13 +37,6 @@ CREATE TABLE `playlist` (
   `source` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `playlist`
---
-
-INSERT INTO `playlist` (`id`, `name`, `url`, `file`, `createdby`, `source`) VALUES
-(14, 'test123', '', 'assets/files/test123-12020-06-24-06-08-02M3u-Playlist.m3u', 1, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -67,8 +60,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `role`, `verified`, `username`, `password`, `email`, `hash`, `createdAt`, `updateAt`) VALUES
-(1, 1, 1, 'admin', 'admin', 'testmail@gmail.com', '', '2020-06-24 07:19:09', '2020-06-24 07:19:09'),
-(5, 0, 1, 'testingUser', '12345', 'sifeyes996@unknmail.com', '74bba22728b6185eec06286af6bec36d', '2020-06-24 14:44:05', '2020-06-24 14:44:05');
+(1, 1, 1, 'admin', 'admin', 'testmail@gmail.com', '', '2020-06-24 07:19:09', '2020-06-24 07:19:09');
 
 --
 -- Indexes for dumped tables
@@ -96,13 +88,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

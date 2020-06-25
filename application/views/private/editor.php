@@ -179,7 +179,7 @@
     
     
     $("#Grouplength").html(groupData.length);
-    console.log( groupData)
+    // console.log( groupData)
     
     listchannels(groupData[0][0]);
   }
@@ -444,12 +444,13 @@
                         "group-title":group,
                         "url":url,
                         "show":"1" };
-            if(playlistdata != null){
-            playlistdata.splice(id, 0, item);
-            }else{
+            if(playlistdata == null || playlistdata == "" || typeof playlistdata === 'string'){
+            
               playlistdata = []
-            playlistdata.push(item);
-
+              playlistdata.push(item);
+            }else{
+              
+              playlistdata.splice(id, 0, item);
             }
         }
         setplaylist(playlistdata)
@@ -515,11 +516,12 @@
       var data_group = $(this).attr("data-group");
       //console.log(data_group, id);
       
-      console.log(id,playlistdata[id]["show"])
+      // console.log(id,playlistdata[id]["show"])
       playlistdata = getplaylist()
+      console.log(playlistdata[id])
       playlistdata[id]["show"] = (playlistdata[id]["show"] == "1"? "0":"1");;
 
-      console.log(id,playlistdata[id]["show"])
+      // console.log(id,playlistdata[id]["show"])
       setplaylist(playlistdata);
       channelDataChaned() ;
       listgroups();
@@ -552,14 +554,17 @@
      
       //save changes
       function save(){
-        playlistdata = getplaylist();
+        playlistdata = { data : getplaylist()};
+         
+        
         playlistdataid = $("#playlistSource").children("option:selected").val();
         $.ajax({
           url: base + "/editor/save",
           method: "POST",
           dataType: "JSON",
-          data: { playlistdata:playlistdata,
-            playlistdataid:playlistdataid, },
+          data: { 
+            playlistdataid:playlistdataid, 
+            playlistdata:playlistdata},
           success: function (d) {
             localStorage.setItem("reservePlaylistdata",playlistdata);
             

@@ -151,6 +151,8 @@ $(document).ready(function() {
   $('#listPlaylist').on('click','.download',function(){
     var id = $(this).attr('data').trim();
     $('#btnDownload').attr('href',base+'/playlist/download/'+id)
+    var name = $(this).parents("tr").find(".text-left").text();
+    $('#downloadPlaylistName').text(name);
 
   });
 
@@ -169,7 +171,7 @@ $(document).ready(function() {
           success: function(d) {
             // var d = JSON.parse(d);
             // console.log(d.username);
-            console.log(d);
+            // console.log(d);
             $("#playlistid").val(id);
             $("#playlistName").attr('value',d.name);
             $("#playlistSource").attr('value',d.source);
@@ -282,7 +284,7 @@ $(document).ready(function() {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php echo form_open_multipart('/playlist/create',['id'=>"uploadPlaylist-form"]);?>
+      <?php echo form_open_multipart('playlist/create',['id'=>"uploadPlaylist-form"]);?>
       <!-- <form  method="post" action='<?= base_url()?>' id="uploadPlaylist-form"> -->
       <div class="modal-body">
       <input type="hidden" name='id' id="playlistid">
@@ -396,7 +398,7 @@ $(document).ready(function() {
           </button>
         </div>
         <div class="modal-body">
-          Do You Want To Download Playlist. ?
+          Do You Want To Download Playlist. ? <span id="downloadPlaylistName"></span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

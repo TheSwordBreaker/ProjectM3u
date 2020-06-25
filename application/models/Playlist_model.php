@@ -73,7 +73,7 @@ class Playlist_model extends CI_Model {
         public function Deatail()
         {
                 $id = $this->input->get('id');
-                $query = $this->db->select('id ,name, source')->where('id',$id)->get('playlist');
+                $query = $this->db->select('id ,name, source,url')->where('id',$id)->get('playlist');
                 $result = $query->result();
                 return $result[0];
         }
@@ -89,7 +89,9 @@ class Playlist_model extends CI_Model {
                 
                 $query = $this->db->where('id',$id)->get('playlist');
                 $result = $query->result();
+                if( is_array($result))
                 return $result[0];
+                // print_r($result);
         }
 
         

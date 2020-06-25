@@ -13,11 +13,17 @@
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+   
     <script src="<?= base_url('assets/js/jquery-3.5.1.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/jquery-ui.js') ?>"></script>
     
+    <script> var baseurl = '<?= base_url(); ?>'; const base = baseurl.slice(0,-1); </script>    
+
+     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
    
     <title> <?= $title ?></title>
+
   </head>
   <body>
     <!-- Navbar -->

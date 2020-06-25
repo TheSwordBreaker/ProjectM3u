@@ -57,9 +57,9 @@ class EditorC extends CI_Controller {
         $this->load->model('Playlist_model','playlist');
         $array_json = $this->input->post('playlistdata');
         $id = $this->input->post('playlistdataid');
+        $array_json = $array_json['data'];
 
-
-        // print_r($array_json);
+        
         $playlist = $this->playlist->Deatail_All_byId($id);
         $filename = explode('.',explode('/',$playlist->file)[2])[0];
         $filename = './assets/json/'.$filename.'.json';
@@ -134,13 +134,13 @@ class EditorC extends CI_Controller {
                 ++$index;
             }elseif( !empty($match['prop_key'][$i])){
                 //is a prop - split item
+                $result[$index]['show'] = 1;
                 $result[$index][$match['prop_key'][$i]] = $match['prop_val'][$i];
             }elseif( !empty($match['something'][$i])){
                 //is a prop - split item
                 $result[$index]['something'] = $item;
             }elseif( !empty($match['url'][$i])){
                 $result[$index]['url'] = $item ;
-                $result[$index]['show'] = 1;
             }
         }
         // echo '<pre>';
@@ -160,13 +160,15 @@ class EditorC extends CI_Controller {
         //print_r($array_json);
         // echo $array_json['DATA'][0];
         for($i = 0 ; $i < count($array_json) ; $i++) {
+            // echo $i;
             if($array_json[$i]['show']){
-            $string .= '#EXTINF:-1 tvg-id="'.$array_json[$i]['tvg-id'].'" tvg-name="'.$array_json[$i]['tvg-name']
-            .'" group-title="'.$array_json[$i]['group-title']
-            .'" tvg-logo="'.(array_key_exists('tvg-logo',$array_json[$i])? $array_json[$i]['tvg-logo']:"")
-            .'"'.(array_key_exists('something',$array_json[$i])? $array_json[$i]['something']:"")
-            ."\n".$array_json[$i]['url']."\n";
-            }
+                $string .= '#EXTINF:-1 tvg-id="'.(array_key_exists('tvg-id',$array_json[$i])? $array_json[$i]['tvg-id']:"")
+                .'" tvg-name="'.(array_key_exists('tvg-name',$array_json[$i])? $array_json[$i]['tvg-name']:"")
+                .'" tvg-logo="'.(array_key_exists('tvg-logo',$array_json[$i])? $array_json[$i]['tvg-logo']:"")
+                .'" group-title="'.(array_key_exists('group-title',$array_json[$i])? $array_json[$i]['group-title']:"")
+                .'" '.(array_key_exists('something',$array_json[$i])? $array_json[$i]['something']:"")
+                ."\n".(array_key_exists('url',$array_json[$i])? $array_json[$i]['url']:"")."\n";
+                }
         }
         
         fwrite($f,$string);

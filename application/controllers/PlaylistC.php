@@ -36,11 +36,12 @@ class PlaylistC extends CI_Controller {
         // echo $array_json['DATA'][0];
         for($i = 0 ; $i < count($array_json) ; $i++) {
             if($array_json[$i]['show']){
-            $string .= '#EXTINF:-1 tvg-id="'.$array_json[$i]['tvg-id'].'" tvg-name="'.$array_json[$i]['tvg-name']
+            $string .= '#EXTINF:-1 tvg-id="'.(array_key_exists('tvg-id',$array_json[$i])? $array_json[$i]['tvg-id']:"")
+            .'" tvg-name="'.(array_key_exists('tvg-name',$array_json[$i])? $array_json[$i]['tvg-name']:"")
             .'" tvg-logo="'.(array_key_exists('tvg-logo',$array_json[$i])? $array_json[$i]['tvg-logo']:"")
-            .'" group-title="'.$array_json[$i]['group-title']
+            .'" group-title="'.(array_key_exists('group-title',$array_json[$i])? $array_json[$i]['group-title']:"")
             .'" '.(array_key_exists('something',$array_json[$i])? $array_json[$i]['something']:"")
-            ."\n".$array_json[$i]['url']."\n";
+            ."\n".(array_key_exists('url',$array_json[$i])? $array_json[$i]['url']:"")."\n";
             }
         }
         
@@ -108,7 +109,15 @@ class PlaylistC extends CI_Controller {
 
             if($select == 1){
                 // $handler = curl_init($form_data['url']);  
-                $response = file_get_contents($form_data['url'])  ;
+                $headers = @get_headers($form_data['url']); 
+                
+                if($headers && strpos( $headers[0], '200')) { 
+                    $response = file_get_contents($form_data['url'])  ;
+                } 
+                else { 
+                    $this->session->set_flashdata('message', ['danger', "Url Not exist"]);
+                    redirect('/playlist');
+                } 
                 // curl_close($handler); 
                 
                 
@@ -117,7 +126,8 @@ class PlaylistC extends CI_Controller {
                 fwrite($f,$response);
                 fclose($f);
                 if($response == ''){
-                    $this->session->set_flashdata('message', ['danger', "url data Could not be fetched Plz Updated File"]);
+                    $this->session->set_flashdata('message', ['danger', "Url data Could not be fetched Plz repeat the process File"]);
+                    redirect('/playlist');
                 }else{
                     $this->session->set_flashdata('message', ['success', 'Data Collected Successfully.']);
                 }
@@ -228,16 +238,27 @@ class PlaylistC extends CI_Controller {
             
 
             if($select == 1){
-                if($form_data['url'] != $list->url ){
-                $handler = curl_init($form_data['url']);  
-                $response = curl_exec ($handler);  
-                curl_close($handler); 
+                $headers = @get_headers($form_data['url']); 
+                
+                if($headers && strpos( $headers[0], '200')) { 
+                    $response = file_get_contents($form_data['url'])  ;
+                } 
+                else { 
+                    $this->session->set_flashdata('message', ['danger', "Url Not exist"]);
+                    redirect('/playlist');
+                } 
+                // curl_close($handler); 
                 
                 
                 $filepath = "./".$form_data['file'];
                 $f = fopen($filepath,'w');
                 fwrite($f,$response);
                 fclose($f);
+                if($response == ''){
+                    $this->session->set_flashdata('message', ['danger', "Url data Could not be fetched Plz repeat the process File"]);
+                    redirect('/playlist');
+                }else{
+                    $this->session->set_flashdata('message', ['success', 'Data Collected Successfully.']);
                 }
             }else if($select ==2){
 

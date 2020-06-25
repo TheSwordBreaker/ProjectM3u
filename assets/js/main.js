@@ -1,11 +1,13 @@
-const base = 'http://localhost:80/ProjectM3u';
+// const base = 'http://localhost:80/ProjectM3u';
+
 
 $(document).ready(function() {
     $('input').on('focus focusout keyup', function () {
         $(this).valid();
     });
     $(".close").on('click',function(){
-        $(this).hide();
+        $('#alert-danger').hide();
+        $('#alert-success').hide();
     });
     $("#showpassword").click(function(){
         if($('input[type="checkbox"]').is(':checked')== true){
