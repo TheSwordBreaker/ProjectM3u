@@ -27,7 +27,7 @@ class Playlist_model extends CI_Model {
         public function delete()
         {
                 $id = $this->input->post('id');
-                
+                $id = $this->security->xss_clean($id);
                         
                 if ($this->db->where('id', $id)->delete('playlist')) {
                         return true;
@@ -40,7 +40,7 @@ class Playlist_model extends CI_Model {
         public function edit($data,$id)
         {
                 $data = $this->security->xss_clean($data);
-                
+                $id = $this->security->xss_clean($id);
                 $this->db->where('id', $id);
 
                 if ($this->db->update('playlist', $data)) {
@@ -57,6 +57,7 @@ class Playlist_model extends CI_Model {
                         2=>'File',
                         3=>'Url',
                 );
+
                 $query = $this->db->select('id ,name, source')->where('createdby', $this->session->userdata('id'))->get('playlist');
                 // $query = $this->db->limit($limit, $offest)->get('user');
                 $result = $query->result();
@@ -73,6 +74,7 @@ class Playlist_model extends CI_Model {
         public function Deatail()
         {
                 $id = $this->input->get('id');
+                $id = $this->security->xss_clean($id);
                 $query = $this->db->select('id ,name, source,url')->where('id',$id)->get('playlist');
                 $result = $query->result();
                 return $result[0];
@@ -80,13 +82,14 @@ class Playlist_model extends CI_Model {
         public function Deatail_All()
         {
                 $id = $this->input->get('id');
+                $id = $this->security->xss_clean($id);
                 $query = $this->db->where('id',$id)->get('playlist');
                 $result = $query->result();
                 return $result[0];
         }
         public function Deatail_All_byId($id)
         {
-                
+                $id = $this->security->xss_clean($id);
                 $query = $this->db->where('id',$id)->get('playlist');
                 $result = $query->result();
                 if( is_array($result))

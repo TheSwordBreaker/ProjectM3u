@@ -146,7 +146,8 @@
         
       },
       error: function (d) {
-        alert("something went wrong");
+        $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
       },
     });
   }
@@ -277,8 +278,8 @@
           var playlistdata = getplaylist();
           var groupData = getGroupData();
           if(groupData.length == 1){
-            alert("Last Group Can't be deleted");
-            
+            $('#alert-danger #msg').text("Last Group Can't be deleted");
+            $('#alert-danger').show()
           }else{
             playlistdata = playlistdata.filter((x)=>{
               return  x["group-title"] != data_group
@@ -374,10 +375,10 @@
       playlistdata.map((x)=>{
             if(x["group-title"] == data_group){
                 x["show"] = groupData[id][3];
-                console.log(x["show"])
+                // console.log(x["show"])
             }
       });
-      console.log(groupData)
+      // console.log(groupData)
       setplaylist(playlistdata)
       setGroupData(groupData);
       
@@ -495,12 +496,12 @@
           var group = $('#channelTable').attr('group').trim();
 
 
-          console.log(name,id,group,url);
+          // console.log(name,id,group,url);
           playlistdata[id]["tvg-name"] = name
           playlistdata[id]["url"] = url
           playlistdata[id]["group-title"] = group;
 
-          console.log(id)
+          // console.log(id)
           //playlistdata.splice(id, 0, item);
           setplaylist(playlistdata);
         }
@@ -518,7 +519,7 @@
       
       // console.log(id,playlistdata[id]["show"])
       playlistdata = getplaylist()
-      console.log(playlistdata[id])
+      // console.log(playlistdata[id])
       playlistdata[id]["show"] = (playlistdata[id]["show"] == "1"? "0":"1");;
 
       // console.log(id,playlistdata[id]["show"])
@@ -568,11 +569,13 @@
           success: function (d) {
             localStorage.setItem("reservePlaylistdata",playlistdata);
             
-            alert(d.msg);
+            $('#alert-success #msg').text(d.msg);
+                $('#alert-success').show()
             
           },
           error: function (d) {
-            alert("something went wrong");
+            $('#alert-danger #msg').text("something went wrong");
+            $('#alert-danger').show()
             
           },
         });
@@ -605,7 +608,8 @@
     function cancel(){
       playlistdata =  JSON.parse(localStorage.getItem("reservePlaylistdata"));
         setplaylist(playlistdata);
-        alert("Changeds Have been Cancel");
+        $('#alert-success #msg').text("Changeds Have been Cancel");
+                $('#alert-success').show()
     }
     $("#groupBtnCancel").on("click", function groupDataCancel() {
       cancel();
@@ -674,8 +678,8 @@
       var offset = parseInt($('#channelTable').attr('offset'));
       var group = $('#channelTable').attr('group').trim();
 
-      console.log("Start position: " + (ui.item.startPos + offset ));
-      console.log("New position: " + (ui.item.index() + offset));
+      // console.log("Start position: " + (ui.item.startPos + offset ));
+      // console.log("New position: " + (ui.item.index() + offset));
       var a = reorderArray((ui.item.startPos + offset ),(ui.item.index() + offset),getplaylist());
       
       setplaylist(a)
@@ -695,7 +699,7 @@
     const reorderArray = (oldIndex,newIndex, originalArray) => {
       const movedItem = originalArray.filter((item, index) => index === oldIndex);
       const remainingItems = originalArray.filter((item, index) => index !== oldIndex);
-      console.log(movedItem[0]);
+      // console.log(movedItem[0]);
       const reorderedItems = [
         ...remainingItems.slice(0, newIndex),
         movedItem[0],
@@ -727,8 +731,8 @@
     },
     stop: function(event, ui) {
       
-      console.log(offsets);
-      console.log(length);
+      // console.log(offsets);
+      // console.log(length);
       var oldIndexStart = offsets[ui.item.startPos];
       var oldIndexEnd = length[ui.item.startPos];
       var newIndexStart = offsets[ui.item.index()];
@@ -737,14 +741,12 @@
       oldIndex={low: parseInt(oldIndexStart),length:parseInt(oldIndexEnd)};
       newIndex={low: parseInt(newIndexStart),high:parseInt(newIndexEnd)+parseInt(newIndexStart)};
       
-      console.log(oldIndex.low,oldIndex.high,newIndex)
-     // console.log("Start position: " + oldIndex);
-     // console.log("New position: " + newIndex );
-      console.log("Start position: " + (ui.item.startPos ));
-      console.log("New position: " + (ui.item.index()));
+      // console.log(oldIndex.low,oldIndex.high,newIndex)
+      // console.log("Start position: " + (ui.item.startPos ));
+      // console.log("New position: " + (ui.item.index()));
      var a = reorderArrayByGroup(oldIndex,newIndex,getplaylist());
      //console.log(getplaylist())
-     console.log(a)
+    //  console.log(a)
      setplaylist(a)
      setGroupData(reorderArray(ui.item.startPos,ui.item.index(),getGroupData()));
      listgroups()

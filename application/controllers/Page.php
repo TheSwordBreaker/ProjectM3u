@@ -175,7 +175,7 @@ class Page extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'hash' => md5(rand(0,1000)),
 			);
-
+			$data = $this->security->xss_clean($data);
 			$this->send_mail($data);
 
             if ($this->user->create($data['hash'])) {
@@ -224,7 +224,7 @@ class Page extends CI_Controller {
        
 			$this->load->model('User_model','user');
 			// echo $this->input->post('inputEmail');
-            return $this->user->unique('email',$this->input->post('inputEmail'));
+            return $this->user->unique('email',$this->security->xss_clean($this->input->post('inputEmail')));
        
        
 	}
@@ -233,7 +233,7 @@ class Page extends CI_Controller {
        
 			$this->load->model('User_model','user');
 			// echo $this->input->post('inputEmail');
-            return $this->user->unique('username',$this->input->post('inputUser'));
+            return $this->user->unique('username',$this->security->xss_clean($this->input->post('inputUser')));
        
        
 	}

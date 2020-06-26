@@ -102,6 +102,8 @@ class PlaylistC extends CI_Controller {
             $form_data['createdby'] = $this->session->userdata('id');
             $form_data['url'] = $this->input->post('playlistUrl');
             $form_data['file'] = 'assets/files/'.$form_data['name'].'-'.$form_data['createdby'].date("Y-m-d-h-i-s")."M3u-Playlist.m3u";
+
+            $form_data = $this->security->xss_clean($form_data);
             $select = $form_data['source'] ;
             //  $FileName = $_FILES['playlistFile']['name'];
             
@@ -191,10 +193,10 @@ class PlaylistC extends CI_Controller {
     public function PlaylistDelete(){
         if ($_SERVER['REQUEST_METHOD'] === "POST"){
             $this->load->model('Playlist_model','playlist');
-            $playlist = $this->playlist->Deatail_All_byId($this->input->post('id'));
+            $playlist = $this->playlist->Deatail_All_byId($this->security->xss_clean($this->input->post('id')));
             //echo "./".$playlist->file;
             unlink("./".$playlist->file);
-            $this->remove_json($this->input->post('id'));
+            $this->remove_json($this->security->xss_clean($this->input->post('id')));
 
             if ($this->playlist->delete()) {
                 
@@ -224,11 +226,13 @@ class PlaylistC extends CI_Controller {
 
 
             $id = $this->input->post('id');
+            $id = $this->security->xss_clean($id);
             $form_data['source'] = $this->input->post('playlistSource');
             $form_data['name'] = $this->input->post('playlistName');
             $form_data['createdby'] = $this->session->userdata('id');
             $form_data['url'] = $this->input->post('playlistUrl');
             $form_data['file'] = 'assets/files/'.$form_data['name'].'-'.$form_data['createdby'].date("Y-m-d-h-i-s")."M3u-Playlist.m3u";
+            $form_data = $this->security->xss_clean($form_data);
             $select = $form_data['source'] ;
             
             //  $FileName = $_FILES['playlistFile']['name'];

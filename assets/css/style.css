@@ -58,10 +58,14 @@ tbody {
     display: table-row;    
     background-color:rgb(60, 124, 124);
 }
+.table {
+    margin-bottom: 5rem;
+}
 form{
    
     padding: 15px;
 }
+
 
 footer p {
     text-align: center;

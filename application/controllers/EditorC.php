@@ -43,20 +43,24 @@ class EditorC extends CI_Controller {
         $this->load->view('layout/footer');
         
     }
-    public function editoras(){
-        $data = $this->M3uParser(2,'','./assets/files/M3UPlus-Playlist-20200614220819.m3u');
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        // $this->load->view('layout/header', $data);
-		// $this->load->view('private/editor');
-        // $this->load->view('layout/footer');
-    }
+    // public function editoras(){
+    //     $this->load->model('Playlist_model','playlist');
+    //     $playlist = $this->playlist->deatail_All_ById(1);
+    //     $data = $this->M3uParser($playlist);
+    //     echo '<pre>';
+    //     print_r($data);
+    //     echo '</pre>';
+    //     // $this->load->view('layout/header', $data);
+	// 	// $this->load->view('private/editor');
+    //     // $this->load->view('layout/footer');
+    // }
 
     public function save(){
         $this->load->model('Playlist_model','playlist');
         $array_json = $this->input->post('playlistdata');
+        $array_json = $this->security->xss_clean($array_json);
         $id = $this->input->post('playlistdataid');
+        $id = $this->security->xss_clean($id);
         $array_json = $array_json['data'];
 
         
@@ -144,8 +148,12 @@ class EditorC extends CI_Controller {
             }
         }
         // echo '<pre>';
-        // print_r( $result );
+        // print_r( $result[0]['group-title']);
         // echo '</pre>';
+        
+        
+        $a = array_column($result, 'group-title');
+        array_multisort($a, SORT_ASC, $result);
         return $result;
     }
 
