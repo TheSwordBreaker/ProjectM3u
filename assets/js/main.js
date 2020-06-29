@@ -9,9 +9,6 @@ document.onreadystatechange = function() {
         document.querySelector( "body").style.visibility = "visible"; 
     } 
 }; 
-// $(window).on('load',function() {
-//     $('#loadingDiv').show();
-// });
 
 
 $(document).ready(function() {
