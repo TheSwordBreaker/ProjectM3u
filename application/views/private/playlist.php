@@ -226,7 +226,11 @@ $(document).ready(function() {
         },
         errorClass: "myError",
             
-        });
+        
+        submitHandler: function(form) {
+          $('#loadingDiv').hide();
+        }});
+        
 
 
 

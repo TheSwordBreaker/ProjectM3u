@@ -105,7 +105,16 @@ footer p {
     display: none;
 }
 
-
+#loadingDiv{
+    position: fixed;
+    left: 42%;
+    top: 35%;
+    display: none;
+    z-index: 1000;
+    height: 31px;
+    width: 31px;
+    margin: auto;
+}
 
 
 

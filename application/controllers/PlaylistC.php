@@ -138,7 +138,7 @@ class PlaylistC extends CI_Controller {
 
                 $config['upload_path']          = './assets/files/';
                 $config['file_name']             = $form_data['name'].'-'.$form_data['createdby'].date("Y-m-d-h-i-s")."M3u-Playlist.m3u";
-                $config['allowed_types']        = 'm3u';
+                $config['allowed_types']        = 'm3u|m3u8';
                 $config['max_size']             = 3000;
                 $config['max_width']            = 1024;
                 $config['max_height']           = 768;
@@ -275,7 +275,7 @@ class PlaylistC extends CI_Controller {
 
                     $config['upload_path']          = './assets/files/';
                     $config['file_name']             = $form_data['name'].'-'.$form_data['createdby'].date("Y-m-d-h-i-s")."M3u-Playlist.m3u";
-                    $config['allowed_types']        = 'm3u';
+                    $config['allowed_types']        = 'm3u|m3u8';
                     $config['max_size']             = 3000;
                     $config['max_width']            = 1024;
                     $config['max_height']           = 768;

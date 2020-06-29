@@ -1,7 +1,21 @@
 // const base = 'http://localhost:80/ProjectM3u';
+document.onreadystatechange = function() { 
+    if (document.readyState !== "complete") { 
+        document.querySelector( 
+          "body").style.visibility = "hidden"; 
+          $('#loadingDiv').show();
+    } else { 
+        $('#loadingDiv').hide();
+        document.querySelector( "body").style.visibility = "visible"; 
+    } 
+}; 
+// $(window).on('load',function() {
+//     $('#loadingDiv').show();
+// });
 
 
 $(document).ready(function() {
+    $('#loadingDiv').hide();
     $('input').on('focus focusout keyup', function () {
         $(this).valid();
     });
@@ -160,7 +174,7 @@ $(document).ready(function() {
                     // $('#alert #msg').text(d.msg)
                     // $('#alert').show()
                     var d = JSON.parse(d);
-                    alert(d.msg);
+                    // alert(d.msg);
                     if (d.status === 1) {
                         window.location = base+"/confirm";
 
@@ -220,5 +234,17 @@ $(document).ready(function() {
         // },
         
 
+});
+
+var $loading = $('#loadingDiv').hide();
+
+$(document).ajaxStart(function() {
+    ajaxLoadTimeout = setTimeout(function() { 
+        $('#loadingDiv').show();
+    }, 1000);
+
+}).ajaxSuccess(function() {
+    clearTimeout(ajaxLoadTimeout);
+    $('#loadingDiv').hide();
 });
 

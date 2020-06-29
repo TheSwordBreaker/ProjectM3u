@@ -130,7 +130,7 @@ class EditorC extends CI_Controller {
         $result = [];
         $index = -1;
 
-        for( $i =0; $i < $count; $i++ ){
+        for( $i = 0; $i < $count; $i++ ){
             $item = $match[0][$i];
 
             if( !empty($match['tag'][$i])){

@@ -3,7 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Page extends CI_Controller {
 
-	
+	public function __construct()
+    {
+        parent::__construct();
+        if ($this->session->userdata('username') && $this->session->userdata('verified') == 1) {
+            redirect('/playlist');
+        }
+    }
 
 	
 	public function index()
@@ -109,7 +115,7 @@ class Page extends CI_Controller {
 				redirect('/playlist');             
 			}else{
 				$this->session->set_flashdata('message', ['danger', 'Url is Incorrect']);
-				// redirect('/confirm');             
+				redirect('/confirm');             
 			}
         }
 	}
@@ -180,7 +186,7 @@ class Page extends CI_Controller {
 
             if ($this->user->create($data['hash'])) {
 				$this->session->set_userdata('username', $data['username']);
-                // $this->session->set_flashdata('message', ['success', 'User Created']);
+                $this->session->set_flashdata('message', ['success', 'User Created']);
 				$data['status']=1;
 				$data['msg']=' User Created';
 				$data['type']= 'success';
